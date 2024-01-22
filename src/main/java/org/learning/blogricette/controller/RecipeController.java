@@ -2,6 +2,7 @@ package org.learning.blogricette.controller;
 
 import jakarta.validation.Valid;
 import org.learning.blogricette.model.Recipe;
+import org.learning.blogricette.repository.CategoryRepository;
 import org.learning.blogricette.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ public class RecipeController {
 
     @Autowired
     private RecipeRepository recipeRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 
     @GetMapping("/list")
@@ -48,13 +51,15 @@ public class RecipeController {
     public String create(Model model) {
         Recipe recipe = new Recipe();
         model.addAttribute("recipe", recipe);
+        model.addAttribute("categoryList", categoryRepository.findAll());
         return "recipes/create";
     }
 
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("recipe") Recipe recipeForm, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("recipe") Recipe recipeForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "recipes/create";
         }
         Recipe savedRecipe = recipeRepository.save(recipeForm);
@@ -67,6 +72,7 @@ public class RecipeController {
         Optional<Recipe> result = recipeRepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("recipe", result.get());
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "recipes/edit";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");
@@ -75,11 +81,12 @@ public class RecipeController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable Integer id, @Valid @ModelAttribute("recipe") Recipe recipeForm, BindingResult bindingResult) {
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("recipe") Recipe recipeForm, BindingResult bindingResult, Model model) {
         Optional<Recipe> result = recipeRepository.findById(id);
         if (result.isPresent()) {
 
             if (bindingResult.hasErrors()) {
+                model.addAttribute("categoryList", categoryRepository.findAll());
                 return "recipes/edit";
             }
 
@@ -98,7 +105,7 @@ public class RecipeController {
         if (result.isPresent()) {
             recipeRepository.deleteById(id);
 
-            redirectAttributes.addFlashAttribute("redirectMessage", "Recipe" + result.get().getTitle() + " deleted!");
+            redirectAttributes.addFlashAttribute("redirectMessage", "Recipe " + result.get().getTitle() + " deleted!");
             return "redirect:/recipes/list";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");

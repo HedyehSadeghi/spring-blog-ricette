@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/resources :: head('Create Recipe')"></head>
 
-<!-- Attributi : Recipe recipe -->
+<!-- Attributi : Recipe recipe, List<Category> categoryList -->
 
 <body>
 <div class="container">
@@ -75,6 +75,15 @@
                     <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
                 </ul>
             </div>
+        </div>
+
+        <div class="col-4">
+            <label class="form-label" for="type">Category</label>
+            <select id="type" class="form-select" th:field="*{category}">
+                <option value="" selected>Choose a category</option>
+                <option th:each="cat : ${categoryList}" th:value="${cat.id}"
+                        th:text="${cat.name}"></option>
+            </select>
         </div>
 
 

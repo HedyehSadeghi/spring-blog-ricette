@@ -28,6 +28,18 @@ public class Recipe {
     @NotEmpty
     private String description;
 
+
+    @ManyToOne
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Integer getId() {
         return id;
     }
