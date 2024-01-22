@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/resources :: head('show recipe home')"></head>
+
+<!-- Attributi : Recipe recipe -->
+
+<body>
+<nav th:replace="fragments/navbar :: topNavbar('home')"></nav>
+<div class="container">
+
+    <div class="d-flex justify-content-center mt-5">
+        <div class="card" style="width: 43rem;">
+            <img th:src="@{${recipe.photoUrl}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${recipe.title}">Card title</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li th:if="${recipe.category != null}" class="list-group-item"
+                    th:text="|Category: ${recipe.category.name}|"></li>
+                <li class="list-group-item" th:text="|Prep time: ${recipe.prepTimeInMinutes} minuti|"></li>
+                <li class="list-group-item" th:text="|Portions: ${recipe.portion}|"></li>
+                <li class="list-group-item" th:text="|Ingredients: ${recipe.ingredient}|"></li>
+                <li class="list-group-item" th:text="|Description: ${recipe.description}|"></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <hr>
+    <a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
+
+
+</div>
+
+<th:block th:replace="fragments/resources :: script"></th:block>
+</body>
+</html>

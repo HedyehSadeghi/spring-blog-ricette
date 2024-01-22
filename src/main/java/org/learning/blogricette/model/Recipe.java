@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "recipes")
 public class Recipe {
@@ -31,6 +33,17 @@ public class Recipe {
 
     @ManyToOne
     private Category category;
+
+
+    private LocalDate createdAt;
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Category getCategory() {
         return category;

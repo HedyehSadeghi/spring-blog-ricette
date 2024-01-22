@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,7 @@ public class RecipeController {
             model.addAttribute("categoryList", categoryRepository.findAll());
             return "recipes/create";
         }
+        recipeForm.setCreatedAt(LocalDate.now());
         Recipe savedRecipe = recipeRepository.save(recipeForm);
         return "redirect:/recipes/list";
     }
@@ -89,7 +91,7 @@ public class RecipeController {
                 model.addAttribute("categoryList", categoryRepository.findAll());
                 return "recipes/edit";
             }
-
+            recipeForm.setCreatedAt(result.get().getCreatedAt());
             Recipe updatedRecipe = recipeRepository.save(recipeForm);
             return "redirect:/recipes/list";
         } else {
