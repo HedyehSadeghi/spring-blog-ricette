@@ -64,7 +64,7 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable Integer id, @Valid @ModelAttribute("category") Category categoryForm, BindingResult bindingResult, Model model) {
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("category") Category categoryForm, BindingResult bindingResult) {
         Optional<Category> result = categoryRepository.findById(id);
         if (result.isPresent()) {
 
