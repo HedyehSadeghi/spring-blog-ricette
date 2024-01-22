@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/resources :: head('Recipe show')"></head>
+
+<!-- Attributi : Recipe recipe -->
+
+<body>
+<div class="container">
+
+    <div class="card" style="width: 45rem;">
+        <img th:src="@{${recipe.photoUrl}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${recipe.title}">Card title</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:text="|Prep time: ${recipe.prepTimeInMinutes} minuti|"></li>
+            <li class="list-group-item" th:text="|Portions: ${recipe.portion}|"></li>
+            <li class="list-group-item" th:text="|Ingredients: ${recipe.ingredient}|"></li>
+            <li class="list-group-item" th:text="|Description: ${recipe.description}|"></li>
+        </ul>
+    </div>
+
+    <hr>
+    <a class="btn btn-primary" th:href="@{/recipes/list}">Back to the list</a>
+
+</div>
+
+<th:block th:replace="fragments/resources :: script"></th:block>
+</body>
+</html>

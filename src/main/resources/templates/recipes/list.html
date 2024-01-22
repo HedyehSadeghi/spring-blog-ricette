@@ -34,7 +34,7 @@
             <td th:text="${rec.portion}"></td>
             <td th:text="|${rec.prepTimeInMinutes} minutes|"></td>
             <td class="d-flex justify-content-between">
-                <a class="btn btn-primary" th:href="@{/}" role="button">
+                <a class="btn btn-primary" th:href="@{/recipes/show/{id}(id=${rec.id})}" role="button">
                     Details </a>
                 <a class="btn btn-primary" th:href="@{/recipes/edit/{id}(id=${rec.id})}" role="button">
                     Edit </a>

@@ -31,6 +31,19 @@ public class RecipeController {
     }
 
 
+    @GetMapping("/show/{id}")
+    public String show(@PathVariable Integer id, Model model) {
+        Optional<Recipe> result = recipeRepository.findById(id);
+        if (result.isPresent()) {
+            Recipe recipe = result.get();
+            model.addAttribute("recipe", recipe);
+            return "recipes/show";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");
+        }
+    }
+
+
     @GetMapping("/create")
     public String create(Model model) {
         Recipe recipe = new Recipe();
