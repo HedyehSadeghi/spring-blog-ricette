@@ -3,6 +3,7 @@ package org.learning.blogricette.controller;
 import org.learning.blogricette.model.Recipe;
 import org.learning.blogricette.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ public class HomeController {
         if (searchKeyword != null) {
             recipeList = recipeRepository.findByTitleContaining(searchKeyword);
         } else {
-            recipeList = recipeRepository.findAll();
+            recipeList = recipeRepository.findAll(Sort.by("createdAt").descending());
         }
         model.addAttribute("recipeList", recipeList);
 
