@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -70,6 +71,21 @@ public class RecipeController {
             }
 
             Recipe updatedRecipe = recipeRepository.save(recipeForm);
+            return "redirect:/recipes/list";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");
+
+        }
+    }
+
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Optional<Recipe> result = recipeRepository.findById(id);
+        if (result.isPresent()) {
+            recipeRepository.deleteById(id);
+
+            redirectAttributes.addFlashAttribute("redirectMessage", "Recipe" + result.get().getTitle() + " deleted!");
             return "redirect:/recipes/list";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");

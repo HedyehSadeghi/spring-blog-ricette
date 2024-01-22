@@ -18,7 +18,7 @@
 
     <div class="alert alert-info" th:if="${recipeList.size() ==0}"> The list is empty</div>
 
-    <table class="table">
+    <table class="table" th:unless="${recipeList.size() ==0}">
         <thead>
         <tr>
             <th scope="col">Title</th>
@@ -39,7 +39,7 @@
                 <a class="btn btn-primary" th:href="@{/recipes/edit/{id}(id=${rec.id})}" role="button">
                     Edit </a>
                 <form
-                        th:action="@{/}"
+                        th:action="@{/recipes/delete/{id}(id=${rec.id})}"
                         method="post"
                         onsubmit="return confirm('Are you sure?')">
                     <button type="submit" class="btn btn-danger"> Delete</button>
