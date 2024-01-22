@@ -36,7 +36,7 @@
             <td class="d-flex justify-content-between">
                 <a class="btn btn-primary" th:href="@{/}" role="button">
                     Details </a>
-                <a class="btn btn-primary" th:href="@{/}" role="button">
+                <a class="btn btn-primary" th:href="@{/recipes/edit/{id}(id=${rec.id})}" role="button">
                     Edit </a>
                 <form
                         th:action="@{/}"

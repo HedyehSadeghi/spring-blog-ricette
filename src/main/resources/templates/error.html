@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/resources :: head('Error')"></head>
+
+
+<body>
+
+<div class="container">
+    <h1>An error occurred</h1>
+    <h2 th:text="${status}"></h2>
+    <p>Message: <span th:text="${message}"></span></p>
+    <div><a th:href="@{/recipes/list}">Back to recipe list</a></div>
+    <p th:text="${trace}"></p>
+</div>
+
+
+<th:block th:replace="fragments/resources :: script"></th:block>
+</body>
+</html>
