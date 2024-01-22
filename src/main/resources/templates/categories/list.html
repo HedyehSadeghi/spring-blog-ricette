@@ -31,21 +31,30 @@
         <tr th:each="cat: ${categoryList}">
             <td th:text="${cat.name}"></td>
             <td class="d-flex justify-content-between">
-                <a class="btn btn-primary" th:href="@{/}" role="button">
+                <a class="btn btn-primary" th:href="@{/categories/edit/{id}(id=${cat.id})}" role="button">
                     Edit </a>
                 <form
-                        th:action="@{/}"
+                        th:if="${cat.recipes.size() ==0}"
+                        th:action="@{/categories/delete/{id}(id=${cat.id})}"
                         method="post"
                         onsubmit="return confirm('Are you sure?')">
                     <button type="submit" class="btn btn-danger"> Delete</button>
                 </form>
+                <button th:unless="${cat.recipes.size() ==0}" class="btn btn-danger"
+                        disabled>
+                    Delete
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
 
 
-    <a class="btn btn-success" th:href="@{/}" role="button">Add Category</a>
+    <a class="btn btn-success" th:href="@{/categories/create}" role="button">Add Category</a>
+
+
+    <hr>
+    <a class="btn btn-primary" th:href="@{/recipes/list}" role="button">Recipe list</a>
 
 
 </div>
